@@ -3,7 +3,7 @@ run-name: List macOS SDKs 🚀
 on: [push]
 jobs:
   show-macos-sdks:
-    runs-on: macos-latest
+    runs-on: macos-11
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
@@ -16,24 +16,28 @@ jobs:
         run: |
           echo ls -la /Library/Developer/CommandLineTools/SDKs
           ls -la /Library/Developer/CommandLineTools/SDKs
-          echo ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
-          ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
-          echo ls -la /Library/Developer/CommandLineTools
-          ls -la /Library/Developer/CommandLineTools
+          # echo ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
+          # ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
+          # echo ls -la /Library/Developer/CommandLineTools
+          # ls -la /Library/Developer/CommandLineTools
       - name: Run xcrun to query default SDK
         run: |
           xcrun --show-sdk-path
           xcrun -sdk macosx --show-sdk-path
           xcrun --show-sdk-platform-version
-      - name: Run xcrun with Xcode 14.1
-        run: | 
-          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-path
-          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun -sdk macosx --show-sdk-path
-          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-platform-version
-      - name: Run xcrun with Xcode 13.1
+      # - name: Run xcrun with Xcode 14.1
+      #   run: | 
+      #     DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-path
+      #     DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun -sdk macosx --show-sdk-path
+      #     DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-platform-version
+      - name: Run xcrun with Xcode 13.2.1
         run: |
-          DEVELOPER_DIR=/Applications/Xcode_13.1.app xcrun --show-sdk-path
-          DEVELOPER_DIR=/Applications/Xcode_13.1.app xcrun -sdk macosx --show-sdk-path
+          DEVELOPER_DIR=/Applications/Xcode_13.2.1.app xcrun --show-sdk-path
+          DEVELOPER_DIR=/Applications/Xcode_13.2.1.app xcrun -sdk macosx --show-sdk-path
+      - name: Run xcrun with Xcode 13.0
+        run: |
+          DEVELOPER_DIR=/Applications/Xcode_13.0.app xcrun --show-sdk-path
+          DEVELOPER_DIR=/Applications/Xcode_13.0.app xcrun -sdk macosx --show-sdk-path
       - name: Query CLT
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-path
@@ -46,19 +50,19 @@ jobs:
       - name: Print current environment
         run: | 
           printenv
-      - name: Build file with Xcode 14.0.1
+      - name: Build file with default Xcode
         run: |
           clang++ hello.cpp -v -o hello
           vtool -show-build hello
-      - name: Build file with Xcode 14.1
+      - name: Build file with Xcode 13.0
         run: |
-          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR clang++ hello.cpp -v -o hello
+          DEVELOPER_DIR=/Applications/Xcode_13.0.app clang++ hello.cpp -v -o hello
           vtool -show-build hello
       - name: Build with Command Line Tools
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools clang++ hello.cpp -v -o hello
           vtool -show-build hello
-      - name: Build with Xcode 13.1
+      - name: Build with Xcode 13.2.1
         run: |
-          DEVELOPER_DIR=/Applications/Xcode_13.1.app clang++ hello.cpp -v -o hello
+          DEVELOPER_DIR=/Applications/Xcode_13.2.1.app clang++ hello.cpp -v -o hello
           vtool -show-build hello
