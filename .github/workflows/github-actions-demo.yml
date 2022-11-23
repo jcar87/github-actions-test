@@ -2,7 +2,7 @@ name: Show macOS SDKs
 run-name: List macOS SDKs 🚀
 on: [push]
 jobs:
-  Show macOS SDKs:
+  show-macos-sdks:
     runs-on: macos-latest
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
