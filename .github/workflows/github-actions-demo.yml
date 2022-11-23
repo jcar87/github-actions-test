@@ -33,9 +33,9 @@ jobs:
       - name: Query CLT
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun -sdk -macosx -show-sdk-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-version
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun -sdk -macosx -show-sdk-path || true
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-path || true
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-version || true
       - name: Show current macOS version
         run: |
           sw_vers
