@@ -18,14 +18,24 @@ jobs:
           ls -la /Library/Developer/CommandLineTools/SDKs
           echo ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
           ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
+          echo ls -la /Library/Developer/CommandLineTools
+          ls -la /Library/Developer/CommandLineTools
       - name: Run xcrun to query default SDK
         run: |
           xcrun --show-sdk-path
           xcrun -sdk macosx --show-sdk-path
+          xcrun --show-sdk-platform-version
       - name: Run xcrun with Xcode 14.1
         run: | 
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-path
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun -sdk macosx --show-sdk-path
+          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-platform-version
+      - name: Query CLT
+        run: |
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun -sdk -macosx -show-sdk-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-platform-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-platform-version
       - name: Show current macOS version
         run: |
           sw_vers
