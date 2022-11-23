@@ -30,6 +30,11 @@ jobs:
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-path
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun -sdk macosx --show-sdk-path
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-platform-version
+      - name: Run xcrun with Xcode 13.1
+        run: |
+          DEVELOPER_DIR=/Applications/Xcode_13.1.app xcrun --show-sdk-path
+          DEVELOPER_DIR=/Applications/Xcode_13.1.app xcrun -sdk macosx --show-sdk-path
+          DEVELOPER_DIR=/Applications/Xcode_13.1.app --show-sdk-platform-version
       - name: Query CLT
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-path
@@ -54,4 +59,7 @@ jobs:
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools clang++ hello.cpp -v -o hello
           vtool -show-build hello
-
+      - name: Build with Xcode 13.1
+        run: |
+          DEVELOPER_DIR=/Applications/Xcode_13.1.app clang++ hello.cpp -v -o hello
+          vtool -show-build hello
