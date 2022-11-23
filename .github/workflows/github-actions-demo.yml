@@ -15,10 +15,15 @@ jobs:
       - name: List files in /Library/Developer/CommandLineTools/SDKs
         run: |
           ls -la /Library/Developer/CommandLineTools/SDKs
+          ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
       - name: Run xcrun to query default SDK
         run: |
           xcrun --show-sdk-path
+          xcrun -sdk macosx --show-sdk-path
       - name: Show current macOS version
         run: |
           sw_vers
+      - name: Print current environment
+        run: | 
+          printenv
       - run: echo "🍏 This job's status is ${{ job.status }}."
