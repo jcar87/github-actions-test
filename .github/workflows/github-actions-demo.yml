@@ -32,4 +32,12 @@ jobs:
       - name: Print current environment
         run: | 
           printenv
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Build file with Xcode 14.0.1
+      - run: |
+          clang++ hello.cpp -v -o hello
+          vtool -show-build hello
+      - name: Build file with Xcode 14.1
+      - run: |
+          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR clang++ hello.cpp -v -o hello
+          vtool -show-build hello
+
