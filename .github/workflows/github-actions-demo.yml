@@ -14,12 +14,18 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in /Library/Developer/CommandLineTools/SDKs
         run: |
+          echo ls -la /Library/Developer/CommandLineTools/SDKs
           ls -la /Library/Developer/CommandLineTools/SDKs
+          echo ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
           ls -la /Applications/Xcode_14.0.1.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/
       - name: Run xcrun to query default SDK
         run: |
           xcrun --show-sdk-path
           xcrun -sdk macosx --show-sdk-path
+      - name: Run xcrun with Xcode 14.1
+        run: | 
+          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-path
+          DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun -sdk macosx --show-sdk-path
       - name: Show current macOS version
         run: |
           sw_vers
