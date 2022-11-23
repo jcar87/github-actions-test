@@ -32,10 +32,10 @@ jobs:
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR xcrun --show-sdk-platform-version
       - name: Query CLT
         run: |
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun -sdk -macosx -show-sdk-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-platform-path
-          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun xcrun --show-sdk-platform-version
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun -sdk -macosx -show-sdk-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-path
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools xcrun --show-sdk-platform-version
       - name: Show current macOS version
         run: |
           sw_vers
@@ -49,5 +49,9 @@ jobs:
       - name: Build file with Xcode 14.1
         run: |
           DEVELOPER_DIR=$XCODE_14_DEVELOPER_DIR clang++ hello.cpp -v -o hello
+          vtool -show-build hello
+      - name: Build with Command Line Tools
+        run: |
+          DEVELOPER_DIR=/Library/Developer/CommandLineTools clang++ hello.cpp -v -o hello
           vtool -show-build hello
 
