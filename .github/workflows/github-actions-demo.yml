@@ -58,6 +58,10 @@ jobs:
         run: |
           DEVELOPER_DIR=/Applications/Xcode_13.0.app clang++ hello.cpp -v -o hello
           vtool -show-build hello
+      - name: Build file with Xcode 13.0 and -sdk macosx
+        run: |
+          DEVELOPER_DIR=/Applications/Xcode_13.0.app xcrun -sdk macosx clang++ hello.cpp -v -o hello
+          vtool -show-build hello
       - name: Build with Command Line Tools
         run: |
           DEVELOPER_DIR=/Library/Developer/CommandLineTools clang++ hello.cpp -v -o hello
